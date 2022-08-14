@@ -3,12 +3,16 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 
 class Square extends React.Component {
+
+  #callback;
+
   constructor(props) {
     super(props);
 
+    this.#callback = props.callback;
+
     this.state = {
-      value: null,
-      callback: null
+      value: null
     };
   }
 
@@ -18,7 +22,7 @@ class Square extends React.Component {
 
   render() {
     return (
-      <button className="square" onClick={() => this.props.callback()}>
+      <button className="square" onClick={this.#callback}>
         {this.props.value}
       </button>
     );
@@ -28,6 +32,10 @@ class Square extends React.Component {
 class Board extends React.Component {
 
   #count = 0;
+  #increaseCount = () => {
+    this.increaseCount();
+  }
+
 
   increaseCount()
   {
@@ -35,7 +43,7 @@ class Board extends React.Component {
   }
 
   renderSquare(i) {
-    return <Square count={this.count} callback={()=>increaseCount()}/>;
+    return <Square count={this.count} callback={this.#increaseCount}/>;
   }
 
   render() {
@@ -45,7 +53,7 @@ class Board extends React.Component {
       <div>
         <div className="status">{status}</div>
         <div className="board-row">
-          {this.renderSquare(count)}
+          {this.renderSquare(this.#count)}
           {this.renderSquare(0)}
           {this.renderSquare(0)}
         </div>
