@@ -39,7 +39,7 @@ class Board extends React.Component {
 
   increaseCount()
   {
-    count ++;
+    this.#count ++;
   }
 
   renderSquare(i) {
