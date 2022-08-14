@@ -1,0 +1,14 @@
+[
+    {
+        "id": "gatherer",
+        "name": "Gatherer",
+        "building": "plant",
+        "resource": [
+            {
+                "id": "food",
+                "modifierType": "add",
+                "modifierValue": 1
+            }
+        ]
+    }
+]
