@@ -2,77 +2,70 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-class Square extends React.Component {
-
-  #callback;
-
-  constructor(props) {
+class BuildingView extends React.Component {
+  constructor(props)
+  {
     super(props);
-
-    this.#callback = props.callback;
-
-    this.state = {
-      value: null
-    };
-  }
-
-  logClick() {
-    console.log('click');
+    this.state = {};
   }
 
   render() {
     return (
-      <button className="square" onClick={this.#callback}>
-        {this.props.value}
+      <div className="buildingInfo">
+      <button className="building" onClick={() => this.props.onClick()}>
+        {this.props.count}
       </button>
+      </div>
     );
   }
 }
 
-class Board extends React.Component {
+class BuildingListView extends React.Component {
 
-  #count = 0;
-  #increaseCount = () => {
-    this.increaseCount();
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      count: 0
+    };
   }
-
 
   increaseCount()
   {
-    this.#count ++;
+    var newCount = this.state.count + 1;
+    this.setState({count: newCount});
   }
 
-  renderSquare(i) {
-    return <Square count={this.count} callback={this.#increaseCount}/>;
+  renderBuilding() {
+    return <BuildingView count={this.state.count} onClick={() => this.increaseCount()}/>;
   }
 
   render() {
-    const status = 'Incremental';
+    const sectionTitle = 'Buildings';
 
     return (
-      <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(this.#count)}
-          {this.renderSquare(0)}
-          {this.renderSquare(0)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(0)}
-          {this.renderSquare(0)}
+      <div className="gameSection">
+        <div className="sectionTitle">{sectionTitle}</div>
+        <div className="itemList">
+          {this.renderBuilding()}
+          {this.renderBuilding()}
+          {this.renderBuilding()}
         </div>
       </div>
     );
   }
 }
 
-class Game extends React.Component {
+class GameView extends React.Component {
   render() {
+    const title = 'Incremental';
+
     return (
       <div className="game">
-        <div className="game-board">
-          <Board />
+        <div className="title">{title}</div>
+        <div className="gameArea">
+          <BuildingListView />
+          <BuildingListView />
         </div>
         <div className="game-info">
           <div>{/* status */}</div>
@@ -86,4 +79,4 @@ class Game extends React.Component {
 // ========================================
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<Game />);
+root.render(<GameView />);
