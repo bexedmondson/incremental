@@ -11,10 +11,20 @@ class BuildingView extends React.Component {
 
   render() {
     return (
-      <div className="buildingInfo">
-      <button className="building" onClick={() => this.props.onClick()}>
-        {this.props.count}
-      </button>
+      <div className="building">
+        {"Farm x"}{this.props.count}
+        <div className="buildingInOut">
+          <div>{"Wood"}</div><div>{"1"}</div>
+          </div>
+        <div className="buildingInOut">
+          <div>{"Food"}</div><div>{"1"}</div>
+        </div>
+        <div className="buildingInOut">
+          <div>{"Person"}</div><div>{"-1"}</div>
+        </div>
+        <button className="buildingBuy" onClick={() => this.props.onClick()}>
+          {"Buy: "}{this.props.cost}
+        </button>
       </div>
     );
   }
@@ -26,7 +36,8 @@ class BuildingListView extends React.Component {
   {
     super(props);
     this.state = {
-      count: 0
+      count: 0,
+      cost: 10
     };
   }
 
@@ -37,7 +48,7 @@ class BuildingListView extends React.Component {
   }
 
   renderBuilding() {
-    return <BuildingView count={this.state.count} onClick={() => this.increaseCount()}/>;
+    return <BuildingView cost={this.state.cost} count={this.state.count} onClick={() => this.increaseCount()}/>;
   }
 
   render() {
