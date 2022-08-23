@@ -1,6 +1,6 @@
 import React from 'react';
 import '../index.css';
-import { BuildingView } from './buildingView';
+import { BuildingView } from './building';
 import buildingData from '../data/buildings.json';
 
 export function BuildingManager() {
@@ -10,7 +10,7 @@ export function BuildingManager() {
     <div className="gameSection">
       <div className="sectionTitle">{sectionTitle}</div>
       <div className="itemList">
-        {buildingData.map(data => <BuildingView key={data.name} config={data}/>)}
+        {buildingData.map(data => <BuildingView key={data.id} config={data}/>)}
       </div>
     </div>
   );

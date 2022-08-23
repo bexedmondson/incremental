@@ -12,20 +12,29 @@ export function BuildingView(props) {
   return (
     <div className="building">
       {props.config.name}{" x"}{count}
-      <div className="buildingInOut">
-        <div>{"Wood"}</div><div>{"1"}</div>
-      </div>
-      <div className="buildingInOut">
-        <div>{"Food"}</div><div>{"1"}</div>
-      </div>
-      <div className="buildingInOut">
-        <div>{"Person"}</div><div>{"-1"}</div>
-      </div>
+      {props.config.out.length ?
+        props.config.out.map(outData => <BuildingInOut key={outData.id} data={outData} count={count} />)
+        : ""
+      }
+      {props.config.in.length ? 
+        props.config.in.map(inData => <BuildingInOut key={inData.id} data={inData} count={count} />)
+        : ""
+      }
       <button className="buildingBuy" onClick={() => {
         return setCount(count + 1);
-      }}>
+        }}>
         {"Buy: "}{+(cost + Number.EPSILON).toFixed(2)}
       </button>
+    </div>
+  );
+}
+
+function BuildingInOut(props) {
+  var number = +(props.data.num * props.count + Number.EPSILON).toFixed(2);
+
+  return (
+    <div className="buildingInOut">
+      <div>{props.data.id}</div><div>{number}</div>
     </div>
   );
 }
