@@ -42,52 +42,6 @@ body {
   width: auto;
 }
 
-.building {
-  margin-bottom: 10px;
-  font-size: 24px;
-}
-
-.buildingInOut {
-  font-size: 18px;
-  margin-left: 5px;
-  margin-right: 5px;
-  height: auto;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
-.buildingBuy {
-  background: #111;
-  color: #eee;
-  border: 3px solid #777;
-  border-radius: 5px;
-  float: left;
-  font-size: 18px;
-  line-height: 28px;
-  height: 32px;
-  margin-top: 5px;
-  padding: 0;
-  text-align: center;
-  width: 200px;
-}
-
-.buildingBuy:hover {
-  background: #555;
-}
-
-.buildingBuy:active {
-  background: #333;
-}
-
-.buildingBuy:focus {
-  outline: none;
-}
-
-.kbd-navigation .buildingBuy:focus {
-  background: #555;
-}
-
 .game-info {
   margin-left: 20px;
 }
