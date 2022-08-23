@@ -1,90 +1,65 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
-class BuildingView extends React.Component {
-  constructor(props)
-  {
-    super(props);
-    this.state = {};
-  }
+function BuildingView() {
+  const [count, setCount] = useState(0);
+  const [cost, setCost] = useState(10);
 
-  render() {
-    return (
-      <div className="building">
-        {"Farm x"}{this.props.count}
-        <div className="buildingInOut">
-          <div>{"Wood"}</div><div>{"1"}</div>
-          </div>
-        <div className="buildingInOut">
-          <div>{"Food"}</div><div>{"1"}</div>
+  return (
+    <div className="building">
+      {"Farm x"}{count}
+      <div className="buildingInOut">
+        <div>{"Wood"}</div><div>{"1"}</div>
         </div>
-        <div className="buildingInOut">
-          <div>{"Person"}</div><div>{"-1"}</div>
-        </div>
-        <button className="buildingBuy" onClick={() => this.props.onClick()}>
-          {"Buy: "}{this.props.cost}
-        </button>
+      <div className="buildingInOut">
+        <div>{"Food"}</div><div>{"1"}</div>
       </div>
-    );
-  }
+      <div className="buildingInOut">
+        <div>{"Person"}</div><div>{"-1"}</div>
+      </div>
+      <button className="buildingBuy" onClick={() => {
+        var newCount = count + 1;
+        setCount(newCount);
+        return setCost(newCount * 10);
+      }}>
+        {"Buy: "}{cost}
+      </button>
+    </div>
+  );
 }
 
-class BuildingListView extends React.Component {
+function BuildingListView() {
+  const sectionTitle = 'Buildings';
 
-  constructor(props)
-  {
-    super(props);
-    this.state = {
-      count: 0,
-      cost: 10
-    };
-  }
-
-  increaseCount()
-  {
-    var newCount = this.state.count + 1;
-    this.setState({count: newCount});
-  }
-
-  renderBuilding() {
-    return <BuildingView cost={this.state.cost} count={this.state.count} onClick={() => this.increaseCount()}/>;
-  }
-
-  render() {
-    const sectionTitle = 'Buildings';
-
-    return (
-      <div className="gameSection">
-        <div className="sectionTitle">{sectionTitle}</div>
-        <div className="itemList">
-          {this.renderBuilding()}
-          {this.renderBuilding()}
-          {this.renderBuilding()}
-        </div>
+  return (
+    <div className="gameSection">
+      <div className="sectionTitle">{sectionTitle}</div>
+      <div className="itemList">
+        <BuildingView />
+        <BuildingView />
+        <BuildingView />
       </div>
-    );
-  }
+    </div>
+  );
 }
 
-class GameView extends React.Component {
-  render() {
-    const title = 'Incremental';
+function GameView() {
+  const title = 'Incremental';
 
-    return (
-      <div className="game">
-        <div className="title">{title}</div>
-        <div className="gameArea">
-          <BuildingListView />
-          <BuildingListView />
-        </div>
-        <div className="game-info">
-          <div>{/* status */}</div>
-          <ol>{/* TODO */}</ol>
-        </div>
+  return (
+    <div className="game">
+      <div className="title">{title}</div>
+      <div className="gameArea">
+        <BuildingListView />
+        <BuildingListView />
       </div>
-    );
-  }
+      <div className="game-info">
+        <div>{/* status */}</div>
+        <ol>{/* TODO */}</ol>
+      </div>
+    </div>
+  );
 }
 
 // ========================================
