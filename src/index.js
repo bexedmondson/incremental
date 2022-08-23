@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
 function BuildingView() {
   const [count, setCount] = useState(0);
   const [cost, setCost] = useState(10);
+
+  useEffect(() => {
+    setCost(count * 10);
+  }, [count]);
 
   return (
     <div className="building">
@@ -19,9 +23,7 @@ function BuildingView() {
         <div>{"Person"}</div><div>{"-1"}</div>
       </div>
       <button className="buildingBuy" onClick={() => {
-        var newCount = count + 1;
-        setCount(newCount);
-        return setCost(newCount * 10);
+        return setCount(count + 1);
       }}>
         {"Buy: "}{cost}
       </button>
