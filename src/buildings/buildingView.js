@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import './building.css';
 
-export function BuildingView() {
+export function BuildingView(props) {
   const [count, setCount] = useState(0);
-  const [cost, setCost] = useState(10);
+  const [cost, setCost] = useState(props.config.cost[0].initial);
 
   useEffect(() => {
-    setCost(count * 10);
-  }, [count]);
+    setCost(props.config.cost[0].initial * Math.pow(props.config.cost[0].multiplier, count));
+  }, [count, props.config]);
 
   return (
     <div className="building">
-      {"Farm x"}{count}
+      {props.config.name}{" x"}{count}
       <div className="buildingInOut">
         <div>{"Wood"}</div><div>{"1"}</div>
       </div>
@@ -24,7 +24,7 @@ export function BuildingView() {
       <button className="buildingBuy" onClick={() => {
         return setCount(count + 1);
       }}>
-        {"Buy: "}{cost}
+        {"Buy: "}{+(cost + Number.EPSILON).toFixed(2)}
       </button>
     </div>
   );
