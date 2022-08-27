@@ -1,0 +1,17 @@
+[
+	{
+		"id": "wood",
+		"count": 0,
+		"max": 1
+	},
+	{
+		"id": "food",
+		"count": 5,
+		"max": 10
+	},
+	{
+		"id": "person",
+		"count": 3,
+		"max": 3
+	}
+]

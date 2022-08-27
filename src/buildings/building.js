@@ -2,29 +2,37 @@ import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './building.css';
 
-export function BuildingView(props) {
+export function BuildingView({config}) {
   const [t] = useTranslation();
   const [count, setCount] = useState(0);
-  const [cost, setCost] = useState(props.config.cost[0].initial);
+  const [cost, setCost] = useState(config.cost[0].initial);
+  const [canAfford, setCanAfford] = useState(false);
 
   useEffect(() => {
-    setCost(props.config.cost[0].initial * Math.pow(props.config.cost[0].multiplier, count));
-  }, [count, props.config]);
+    setCost(config.cost[0].initial * Math.pow(config.cost[0].multiplier, count));
+  }, [count, config]);
+
+  useEffect(() => {
+    setCanAfford(true); //TODO fix
+  }, [cost]);
 
   return (
     <div className="building">
-      {t(props.config.id)}{" x"}{count}
-      {props.config.out.length ?
-        props.config.out.map(outData => <BuildingInOut key={outData.id} data={outData} count={count} />)
+      {t(config.id)}{" x"}{count}
+      {config.out.length ?
+        config.out.map(outData => <BuildingInOut key={outData.id} data={outData} count={count} />)
         : ""
       }
-      {props.config.in.length ? 
-        props.config.in.map(inData => <BuildingInOut key={inData.id} data={inData} count={count} />)
+      {config.in.length ? 
+        config.in.map(inData => <BuildingInOut key={inData.id} data={inData} count={count} />)
         : ""
       }
-      <button className="buildingBuy" onClick={() => {
-        return setCount(count + 1);
-        }}>
+      <button 
+        className="buildingBuy" 
+        disabled={!canAfford}
+        onClick={() => {
+          return setCount(count + 1);
+          }}>
         {t('buy')}{": "}{+(cost + Number.EPSILON).toFixed(2)}
       </button>
     </div>

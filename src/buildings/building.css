@@ -1,5 +1,3 @@
-
-
 .building {
   margin-bottom: 10px;
   font-size: 24px;
@@ -7,8 +5,7 @@
 
 .buildingInOut {
   font-size: 18px;
-  margin-left: 5px;
-  margin-right: 5px;
+  margin: 5px;
   height: auto;
   display: flex;
   flex-direction: row;
@@ -36,6 +33,11 @@
 
 .buildingBuy:active {
   background: #333;
+}
+
+.buildingBuy:disabled {
+  color: rgba(150, 150, 150, 0.5);
+  border: 3px solid rgba(127, 127, 127, 0.5);
 }
 
 .buildingBuy:focus {

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './i18n';
 import './index.css';
 import { BuildingManager } from './buildings/buildingManager';
+import { ResourceManager } from './resources/resourceManager';
 import { useTranslation } from 'react-i18next';
 
 function GameView() {
@@ -13,7 +14,7 @@ function GameView() {
       <div className="title">{t('incremental')}</div>
       <div className="gameArea">
         <BuildingManager />
-        <BuildingManager />
+        <ResourceManager />
       </div>
       <div className="game-info">
         <div>{/* status */}</div>
