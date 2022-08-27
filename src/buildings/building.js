@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import './building.css';
 
 export function BuildingView(props) {
+  const [t] = useTranslation();
   const [count, setCount] = useState(0);
   const [cost, setCost] = useState(props.config.cost[0].initial);
 
@@ -11,7 +13,7 @@ export function BuildingView(props) {
 
   return (
     <div className="building">
-      {props.config.name}{" x"}{count}
+      {t(props.config.id)}{" x"}{count}
       {props.config.out.length ?
         props.config.out.map(outData => <BuildingInOut key={outData.id} data={outData} count={count} />)
         : ""
@@ -23,18 +25,20 @@ export function BuildingView(props) {
       <button className="buildingBuy" onClick={() => {
         return setCount(count + 1);
         }}>
-        {"Buy: "}{+(cost + Number.EPSILON).toFixed(2)}
+        {t('buy')}{": "}{+(cost + Number.EPSILON).toFixed(2)}
       </button>
     </div>
   );
 }
 
 function BuildingInOut(props) {
+  const [t] = useTranslation();
+
   var number = +(props.data.num * props.count + Number.EPSILON).toFixed(2);
 
   return (
     <div className="buildingInOut">
-      <div>{props.data.id}</div><div>{number}</div>
+      <div>{t(props.data.id)}</div><div>{number}</div>
     </div>
   );
 }

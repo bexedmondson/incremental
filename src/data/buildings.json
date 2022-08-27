@@ -1,7 +1,6 @@
 [
     {
         "id": "plant",
-        "name": "Plant",
         "cost": [
             {
                 "id": "food",
@@ -24,7 +23,6 @@
     },
     {
         "id": "house",
-        "name": "House",
         "cost": [
             {
                 "id": "wood",

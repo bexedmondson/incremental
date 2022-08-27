@@ -1,7 +1,6 @@
 [
     {
         "id": "gatherer",
-        "name": "Gatherer",
         "building": "plant",
         "resource": [
             {
