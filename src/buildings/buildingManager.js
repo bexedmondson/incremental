@@ -6,7 +6,7 @@ import buildingData from '../data/buildings.json';
 
 export function BuildingManager() {
   const [t] = useTranslation();
-
+  
   return (
     <div className="gameSection">
       <div className="sectionTitle">{t('buildings')}</div>
