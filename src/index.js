@@ -4,7 +4,7 @@ import './i18n';
 import './index.css';
 import { BuildingManager } from './buildings/buildingManager';
 import { ResourceManager } from './resources/resourceManager';
-import { ResourceUpdater } from './dataManager';
+import { ResourceUpdater } from './resourceUpdater';
 import { useTranslation } from 'react-i18next';
 
 function GameView() {

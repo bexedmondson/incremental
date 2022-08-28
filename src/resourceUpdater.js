@@ -59,5 +59,3 @@ function updateResourceOnInterval(buildingState, resourceState) {
 
 	return { "count": totalCount, "max": totalMax };
 }
-
-

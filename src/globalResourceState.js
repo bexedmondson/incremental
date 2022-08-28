@@ -14,3 +14,16 @@ resourceData.forEach(resource => {
 const globalResourceState = createState(initialState);
 
 export default globalResourceState;
+
+export function canAfford(cost) {
+  var afford = true;
+
+  cost.forEach(resourceNeeded => {
+    var resourceState = globalResourceState.get().find(x => x.id === resourceNeeded.id);
+    if (resourceState.count < resourceNeeded.amount) {
+      afford = false;
+    }
+  });
+
+  return afford;
+}
