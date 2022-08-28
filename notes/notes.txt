@@ -4,8 +4,6 @@ pass each building data objects down through the components, separating as we go
 when the building view is initialised, set up so that in the state is:
     - building count
     - can afford flag
-and subscribe to the cost resource(s) custom events with this:
-    document.addEventListener('wood', function({ check can afford, change state if needed })
 
 set up some kind of resource manager object at the top that takes in all the data
 this can set up a function that runs the calculation every second

@@ -14,7 +14,7 @@ export function ResourceManager() {
     <div className="gameSection">
       <div className="sectionTitle">{t('resources')}</div>
       <div className="itemList">
-        {resourceState.get().map(data => <ResourceView key={data.id} id={data.id} count={data.count} max={data.max}/>)}
+        {resourceState.get().map(data => <ResourceView key={data.id} state={data}/>)}
       </div>
     </div>
   );

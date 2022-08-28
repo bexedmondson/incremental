@@ -1,14 +1,12 @@
 import { createState } from '@hookstate/core';
-import { createState } from '@hookstate/core';
-import buildingData from '../data/buildings.json';
+import buildingData from './data/buildings.json';
 
-const initialState = [];
+const initialState = {};
 
 buildingData.forEach(building => {
-  var id = building.id;
-  initialState = initialState.push({
-    [id]: 0
-  });
+  initialState[building.id] = {
+		"count": 0
+	};
 });
 
 const globalBuildingState = createState(initialState);

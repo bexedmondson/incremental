@@ -1,17 +1,11 @@
 [
 	{
-		"id": "wood",
-		"count": 0,
-		"max": 1
+		"id": "wood"
 	},
 	{
-		"id": "food",
-		"count": 5,
-		"max": 10
+		"id": "food"
 	},
 	{
-		"id": "person",
-		"count": 3,
-		"max": 3
+		"id": "person"
 	}
 ]

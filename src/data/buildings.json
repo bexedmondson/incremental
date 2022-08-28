@@ -8,18 +8,28 @@
                 "multiplier": 1.05
             }
         ],
+        "unlock": [],
         "out": [
             {
                 "id": "food",
-                "num": 1
+                "rate": 1
             },
             {
                 "id": "wood",
-                "num": 0.1
+                "rate": 0.2
             }
         ],
         "in": [],
-        "store": []
+        "store": [
+            {
+                "id": "food",
+                "amount": 5
+            },
+            {
+                "id": "wood",
+                "amount": 2
+            }
+        ]
     },
     {
         "id": "house",
@@ -30,17 +40,23 @@
                 "multiplier": 1.1
             }
         ],
+        "unlock": [
+            {
+                "id": "wood",
+                "amount": 8
+            }
+        ],
         "out": [],
         "in": [
             {
                 "id": "food",
-                "num": 1
+                "rate": 1
             }
         ],
         "store": [
             {
                 "id": "person",
-                "num": 1
+                "amount": 1
             }
         ]
     }
