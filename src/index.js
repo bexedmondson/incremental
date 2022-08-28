@@ -35,7 +35,7 @@ function GameView() {
     }, SECOND_MS);
 
     return () => clearInterval(interval);
-  }, []);
+  });
 
   return (
     <div className="game">

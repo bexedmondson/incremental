@@ -1,14 +1,5 @@
-import React from 'react';
 import buildingData from './data/buildings.json';
-
-
-export function updateResources(buildingState, resourceState) {
-
-	console.log(resourceState);
-	resourceState.wood = resourceState.wood + 1;
-
-	return resourceState;
-}
+import { getNiceNumber } from './mathUtils';
 
 export function updateResource(buildingState, resourceState) {
 	var totalCount = resourceState.count;
@@ -30,6 +21,9 @@ export function updateResource(buildingState, resourceState) {
 	});
 
 	totalCount = Math.min(totalCount, totalMax);
+
+	totalCount = getNiceNumber(totalCount);
+	totalMax = getNiceNumber(totalMax);
 
 	return { "count": totalCount, "max": totalMax };
 }
