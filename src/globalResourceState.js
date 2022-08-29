@@ -19,7 +19,14 @@ export function canAfford(cost) {
   var afford = true;
 
   cost.forEach(resourceNeeded => {
+    //console.log(resourceNeeded.id);
+    //console.log(globalResourceState);
     var resourceState = globalResourceState.get().find(x => x.id === resourceNeeded.id);
+    if (resourceState == null)
+    {
+      console.log("State not found for resource id " + resourceNeeded.id);
+      return false;
+    }
     if (resourceState.count < resourceNeeded.amount) {
       afford = false;
     }

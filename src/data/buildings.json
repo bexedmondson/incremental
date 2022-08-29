@@ -4,7 +4,7 @@
         "cost": [
             {
                 "id": "food",
-                "initial": 1,
+                "initial": 0,
                 "multiplier": 1.05
             }
         ],

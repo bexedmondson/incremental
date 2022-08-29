@@ -3,22 +3,63 @@ import { useTranslation } from 'react-i18next';
 import './building.css';
 import { useState as useGlobalState } from '@hookstate/core';
 import { getNiceNumber } from '../mathUtils';
+import globalResourceState from '../globalResourceState';
 
 export function BuildingView({config, state}) {
   const [t] = useTranslation();
-  const [cost, setCost] = useState(config.cost[0].initial);
-  const [canAfford, setCanAfford] = useState(false);
 
-  var globalBuildingState = useGlobalState(state);
-  var buildingState = globalBuildingState[config.id].get();
+  var initialCost = [];
+
+  config.cost.forEach(resource => {
+    initialCost.push({
+      id: resource.id,
+      "amount": resource.initial
+    });
+  });
+
+  const [cost, setCost] = useState(initialCost);
+
+  const recalculateCost = (cost, config, count) => {
+    for (var i = 0; i < cost.length; i++) {
+      var newCost = config.cost[i].initial * Math.pow(config.cost[i].multiplier, count);
+      newCost = getNiceNumber(newCost);
+      if (newCost !== cost[i].amount) {
+        cost[i].amount = newCost;
+      }
+    }
+
+    return cost;
+  }
   
-  useEffect(() => {
-    setCost(config.cost[0].initial * Math.pow(config.cost[0].multiplier, buildingState.count));
-  }, [buildingState.count, config]);
+  const allResourceState = useGlobalState(globalResourceState);
+
+  const canAfford = (globalResourceState, cost) => {
+    var afford = true;
+
+    cost.forEach(resourceNeeded => {
+      var resourceState = globalResourceState.get().find(x => x.id === resourceNeeded.id);
+      if (resourceState == null)
+      {
+        console.log("State not found for resource id " + resourceNeeded.id);
+        return false;
+      }
+      if (resourceState.count < resourceNeeded.amount) {
+        afford = false;
+      }
+    });
+
+    return afford;
+  }
+  
+  const [canBuy, setCanBuy] = useState(canAfford(allResourceState, cost));
+
+  var buildingState = state[config.id].get();
 
   useEffect(() => {
-    setCanAfford(true); //TODO fix
-  }, [cost]);
+    console.log(cost);
+    globalResourceState.get();
+    setCanBuy(canAfford(allResourceState, cost));
+  }, [allResourceState, cost]);
 
   return (
     <div className="building">
@@ -33,10 +74,12 @@ export function BuildingView({config, state}) {
       }
       <button 
         className="buildingBuy" 
-        disabled={!canAfford}
-        onClick={() => { return globalBuildingState[config.id].count.set(buildingState.count + 1);
+        disabled={!canBuy}
+        onClick={() => {
+          state[config.id].count.set(buildingState.count + 1);
+          setCost(recalculateCost(cost, config, buildingState.count));
       }}>
-        {t('buy')}{": "}{getNiceNumber(cost)}
+        {t('buy')}{": "}{cost[0].amount}
       </button>
     </div>
   );
@@ -53,3 +96,5 @@ function BuildingInOut(props) {
     </div>
   );
 }
+
+
