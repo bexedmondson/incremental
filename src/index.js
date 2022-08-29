@@ -4,7 +4,6 @@ import './i18n';
 import './index.css';
 import { BuildingManager } from './buildings/buildingManager';
 import { ResourceManager } from './resources/resourceManager';
-import { ResourceUpdater } from './resourceUpdater';
 import { useTranslation } from 'react-i18next';
 
 function GameView() {
@@ -14,7 +13,6 @@ function GameView() {
     <div className="game">
       <div className="title">{t('incremental')}</div>
       <div className="gameArea">
-        <ResourceUpdater />
         <BuildingManager />
         <ResourceManager />
       </div>

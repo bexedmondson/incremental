@@ -13,19 +13,26 @@ export function BuildingView({config, state}) {
   config.cost.forEach(resource => {
     initialCost.push({
       id: resource.id,
-      "amount": resource.initial
+      amount: resource.initial
     });
   });
 
   const [cost, setCost] = useState(initialCost);
 
   const recalculateCost = (cost, config, count) => {
+    var newCostArr = [];
     for (var i = 0; i < cost.length; i++) {
       var newCost = config.cost[i].initial * Math.pow(config.cost[i].multiplier, count);
       newCost = getNiceNumber(newCost);
-      if (newCost !== cost[i].amount) {
-        cost[i].amount = newCost;
-      }
+
+      newCostArr.push({
+        id: cost[i].id,
+        amount: newCost
+      });
+    }
+
+    if (newCostArr !== cost) { 
+      return newCostArr;
     }
 
     return cost;
@@ -56,7 +63,6 @@ export function BuildingView({config, state}) {
   var buildingState = state[config.id].get();
 
   useEffect(() => {
-    console.log(cost);
     globalResourceState.get();
     setCanBuy(canAfford(allResourceState, cost));
   }, [allResourceState, cost]);

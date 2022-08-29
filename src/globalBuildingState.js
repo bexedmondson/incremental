@@ -5,7 +5,7 @@ const initialState = {};
 
 buildingData.forEach(building => {
   initialState[building.id] = {
-		"count": 0
+		count: 0
 	};
 });
 

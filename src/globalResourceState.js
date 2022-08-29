@@ -1,13 +1,16 @@
 import { createState } from '@hookstate/core';
 import resourceData from './data/resources.json';
+import globalBuildingState from './globalBuildingState';
+import { getNiceNumber } from './mathUtils';
+import buildingData from './data/buildings.json';
 
 const initialState = [];
 
 resourceData.forEach(resource => {
   initialState.push({
     id: resource.id,
-    "count": 0,
-    "max": 0
+    count: 0,
+    max: 0
   });
 });
 
@@ -15,22 +18,45 @@ const globalResourceState = createState(initialState);
 
 export default globalResourceState;
 
-export function canAfford(cost) {
-  var afford = true;
+const SECOND_MS = 1000;
 
-  cost.forEach(resourceNeeded => {
-    //console.log(resourceNeeded.id);
-    //console.log(globalResourceState);
-    var resourceState = globalResourceState.get().find(x => x.id === resourceNeeded.id);
-    if (resourceState == null)
-    {
-      console.log("State not found for resource id " + resourceNeeded.id);
-      return false;
+setInterval(() => {
+  globalResourceState.forEach(resource => {
+    var countMaxObj = updateResourceOnInterval(globalBuildingState.value, resource.value);
+    if (countMaxObj.count !== resource.get().count) {
+      resource.count.set(countMaxObj.count);
     }
-    if (resourceState.count < resourceNeeded.amount) {
-      afford = false;
+
+    if (countMaxObj.max !== resource.get().max) {
+      resource.max.set(countMaxObj.max);
     }
   });
+}, SECOND_MS);
 
-  return afford;
+
+function updateResourceOnInterval(buildingState, resourceState) {
+	var totalCount = resourceState.count;
+	var totalMax = 0;
+	
+	buildingData.forEach(building => {
+		var count = buildingState[building.id].count;
+		building.out.forEach(out => {
+			if (out.id === resourceState.id) {
+				totalCount += count * out.rate;
+			}
+		});
+
+		building.store.forEach(store => {
+			if (store.id === resourceState.id) {
+				totalMax += count * store.amount;
+			}
+		});
+	});
+
+	totalCount = Math.min(totalCount, totalMax);
+
+	totalCount = getNiceNumber(totalCount);
+	totalMax = getNiceNumber(totalMax);
+
+	return { "count": totalCount, "max": totalMax };
 }
