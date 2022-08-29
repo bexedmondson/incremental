@@ -71,6 +71,14 @@ export function BuildingView({config, state}) {
       globalResourceState[resourceStateIndex].count.set(changedValue);
     });
 
+    config.store.forEach(resourceStored => {
+      var resourceStateIndex = globalResourceState.get().findIndex(x => x.id === resourceStored.id);
+      var resourceState = globalResourceState[resourceStateIndex].get();
+      var changedValue = resourceState.max + resourceStored.amount;
+      changedValue = getNiceNumber(changedValue);
+      globalResourceState[resourceStateIndex].max.set(changedValue);
+    });
+
     state[config.id].count.set(buildingState.count + 1);
     setCost(recalculateCost(cost, config, buildingState.count));
   }
