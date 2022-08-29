@@ -62,6 +62,19 @@ export function BuildingView({config, state}) {
 
   var buildingState = state[config.id].get();
 
+  const buyBuilding = () => {
+    cost.forEach(resourceNeeded => {
+      var resourceStateIndex = globalResourceState.get().findIndex(x => x.id === resourceNeeded.id);
+      var resourceState = globalResourceState[resourceStateIndex].get();
+      var changedValue = resourceState.count - resourceNeeded.amount;
+      changedValue = getNiceNumber(changedValue);
+      globalResourceState[resourceStateIndex].count.set(changedValue);
+    });
+
+    state[config.id].count.set(buildingState.count + 1);
+    setCost(recalculateCost(cost, config, buildingState.count));
+  }
+
   useEffect(() => {
     globalResourceState.get();
     setCanBuy(canAfford(allResourceState, cost));
@@ -81,10 +94,7 @@ export function BuildingView({config, state}) {
       <button 
         className="buildingBuy" 
         disabled={!canBuy}
-        onClick={() => {
-          state[config.id].count.set(buildingState.count + 1);
-          setCost(recalculateCost(cost, config, buildingState.count));
-      }}>
+        onClick={() => { buyBuilding() }}>
         {t('buy')}{": "}{cost[0].amount}
       </button>
     </div>
